@@ -1,46 +1,1269 @@
-<!DOCTYPE html>
+ 
+  <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Spanish Vocabulary</title>
-    <link rel="stylesheet" href="./style.css" />
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <title>Rajanmahto's Magical World</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts for magic! -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main-grad: linear-gradient(120deg, #ff6fd8 0%, #3813c2 25%, #6fffc1 50%, #ffe29f 75%, #fd6e6a 100%);
+      --shadow: 0 4px 32px #6fffc188, 0 2px 18px #ff6fd888;
+      --nav-bg: rgba(255,255,255,0.14);
+      --glass-bg: rgba(255,255,255,0.24);
+      --border-grad: linear-gradient(90deg,#ff6fd8,#ffe29f,#3813c2,#6fffc1);
+    }
+    html,body {
+      margin: 0; padding: 0; height: 100%;
+      min-height: 100%;
+      font-family: 'Baloo 2', 'Pacifico', cursive, sans-serif;
+      background: linear-gradient(120deg, #00e6f6 0%, #f5a8ec 50%, #ffec61 100%);
+      background-size: 400% 400%;
+      animation: bgmove 28s ease-in-out infinite;
+      color: #222;
+    }
+    @keyframes bgmove {
+      0% {background-position:0% 50%;}
+      50% {background-position:100% 50%;}
+      100% {background-position:0% 50%;}
+    }
+    .nav {
+      display: flex; gap: 30px; justify-content: center; align-items: center;
+      padding: 22px 0; background: var(--nav-bg); backdrop-filter: blur(10px);
+      border-bottom: 2px solid #ffe29f;
+      position: sticky; top: 0; z-index: 10;
+      box-shadow: 0 2px 28px #b2b2ff42;
+    }
+    .nav a {
+      text-decoration: none;
+      padding: 12px 28px;
+      font-size: 1.23em;
+      font-weight: 700;
+      color: #fff;
+      background: var(--main-grad);
+      border-radius: 19px;
+      box-shadow: 0 2px 8px #fff3;
+      letter-spacing: 1.3px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none; outline: none;
+      display: inline-block;
+    }
+    .nav a.active, .nav a:hover {
+      transform: scale(1.12) rotate(-1deg);
+      box-shadow: 0 4px 18px #8aff8a;
+    }
+    .footer {
+      margin-top: 4vh;
+      padding: 18px 0 16px 0;
+      text-align: center;
+      background: rgba(0,0,0,0.14);
+      color: #fff;
+      font-size: 1.1em;
+      letter-spacing: 1px;
+      text-shadow: 0 0 8px #ffec61;
+    }
+    /* Page transitions */
+    .page {
+      min-height: 64vh; display: none; opacity: 0; transform: scale(1.02);
+      animation: fadeIn 1.2s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+      position: relative;
+    }
+    .page.active {
+      display: block; opacity: 1; transform: scale(1.0);
+    }
+    @keyframes fadeIn {
+      from { opacity:0; transform: scale(1.05);}
+      to   { opacity:1; transform: scale(1.0);}
+    }
+    /* Magical Orbs Animation */
+    .magic-orbs {
+      position: absolute; width: 100vw; left: 0; top: 0; pointer-events: none; z-index: 1;
+    }
+    .orb {
+      position: absolute; border-radius: 50%; opacity: 0.65; z-index: 1; filter: blur(2px);
+      animation: orbfloat 9s infinite alternate;
+    }
+    .orb1 {width:120px;height:120px;left:8vw;top:25vh;background:linear-gradient(#ff6fd8,#fd6e6a);animation-delay:0.1s;}
+    .orb2 {width:90px;height:90px;left:70vw;top:18vh;background:linear-gradient(#00e6f6,#8aff8a);animation-delay:0.2s;}
+    .orb3 {width:80px;height:80px;left:48vw;top:60vh;background:linear-gradient(#ffe29f,#ff6fd8);animation-delay:0.6s;}
+    .orb4 {width:110px;height:110px;left:20vw;top:50vh;background:linear-gradient(#f5a8ec,#a77dff);animation-delay:0.4s;}
+    .orb5 {width:60px;height:60px;left:60vw;top:25vh;background:linear-gradient(#fd6e6a,#8aff8a);animation-delay:0.9s;}
+    .orb6 {width:60px;height:60px;left:80vw;top:55vh;background:linear-gradient(#ffec61,#00e6f6);animation-delay:0.7s;}
+    .orb7 {width:70px;height:70px;left:33vw;top:38vh;background:linear-gradient(#ffe29f,#a77dff);animation-delay:0.3s;}
+    .orb8 {width:90px;height:90px;left:90vw;top:30vh;background:linear-gradient(#6fffc1,#3813c2);animation-delay:0.8s;}
+    .orb9 {width:55px;height:55px;left:22vw;top:80vh;background:linear-gradient(#fd6e6a,#ffe29f);animation-delay:1.0s;}
+    .orb10{width:100px;height:100px;left:55vw;top:15vh;background:linear-gradient(#a77dff,#6fffc1);animation-delay:1.2s;}
+    @keyframes orbfloat {
+      0% {transform: translateY(0) scale(1);}
+      100% {transform: translateY(-28px) scale(1.1);}
+    }
+    /* Fireworks */
+    .fireworks {
+      position: absolute; left: 52vw; top: 51vh; width: 0; height: 0; z-index: 8;
+      pointer-events: none;
+    }
+    .fireworks::after {
+      content: "";
+      position: absolute;
+      left: -200px; top: -200px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, #fff 2%, #ff6fd8 10%, #00e6f6 20%, #ffe29f 30%, transparent 70%);
+      opacity: 0.38;
+      border-radius: 50%;
+      animation: fireworks 2.5s infinite;
+      pointer-events: none;
+    }
+    @keyframes fireworks {
+      0% { transform: scale(0);}
+      60% { opacity: 0.6; }
+      80% { opacity: 0.2;}
+      100% { transform: scale(1.2); opacity: 0;}
+    }
+    /* Rainbow Text and Glow */
+    .rainbow-text {
+      background:var(--main-grad);
+      background-size: 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbowmove 2.8s infinite alternate;
+      font-family: 'Pacifico', cursive;
+      font-size: 3em;
+      text-shadow: 0 0 24px #fff8, 0 0 54px #fd6e6a66;
+      margin-top: 2.2rem;
+      letter-spacing: 2px;
+      text-align: center;
+      font-weight: 900;
+    }
+    @keyframes rainbowmove {
+      0% { background-position: 0%;}
+      100% { background-position: 100%;}
+    }
+    .magic-desc {
+      margin: 2.3rem auto 0 auto;
+      font-size: 1.37rem;
+      color: #242424;
+      background: rgba(255,255,255,0.4);
+      display: inline-block;
+      padding: 22px 38px;
+      border-radius: 18px;
+      box-shadow: 0 2px 18px #b2faff82;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      max-width: 600px;
+    }
+    .rainbow { color:#ed1e79; background:linear-gradient(90deg,#fcf,#6ff,#fd6e6a,#ffe29f); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
+    .glitter { color:#a77dff; text-shadow:0 0 3px #fff,0 0 22px #b2faff;}
+    .shimmer { color:#f5a8ec; text-shadow:0 0 8px #ffec61;}
+    /* About */
+    .about-box {
+      border: 4px solid;
+      border-image: var(--border-grad) 1;
+      background: var(--glass-bg);
+      border-radius: 24px;
+      padding: 36px 44px;
+      box-shadow: 0 3px 32px #8aff8a55;
+      text-align: center;
+      max-width: 600px;
+      margin: 5vh auto 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    .about-anim {
+      display: inline-block;
+      width: 120px;
+      height: 120px;
+      margin-top: 16px;
+      background: conic-gradient(from 0deg, #ff6fd8 0deg 90deg, #00e6f6 90deg 180deg, #ffe29f 180deg 270deg, #8aff8a 270deg 360deg);
+      border-radius: 50%;
+      animation: spin360 2.8s linear infinite;
+      box-shadow: 0 0 32px #ff6fd8aa, 0 0 32px #ffe29f88;
+    }
+    @keyframes spin360 {
+      100% { transform: rotate(360deg);}
+    }
+    /* Contact Form */
+    .contact-form {
+      background: var(--glass-bg);
+      box-shadow: 0 4px 44px #ff6fd866;
+      border-radius: 22px;
+      padding: 38px 44px;
+      max-width: 400px;
+      width: 92vw;
+      text-align: center;
+      border: 2px solid #ffe29f;
+      animation: glassfade 2.5s;
+      margin: 5vh auto 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    @keyframes glassfade {
+      0% {opacity:0; transform: translateY(70px);}
+      100% {opacity:1; transform: translateY(0);}
+    }
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      margin: 12px 0;
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: 2px solid #8aff8a;
+      font-size: 1.1em;
+      background: rgba(255,255,255,0.33);
+      transition: border 0.2s, box-shadow 0.2s;
+      outline: none;
+      resize: none;
+      font-family: inherit;
+    }
+    .contact-form input:focus, .contact-form textarea:focus {
+      border: 2px solid #ff6fd8;
+      box-shadow: 0 0 8px #ff6fd8;
+    }
+    .rainbow-btn {
+      background: var(--main-grad);
+      color: #fff;
+      font-weight: bold;
+      font-size: 1.15em;
+      border: none;
+      padding: 13px 38px;
+      border-radius: 14px;
+      box-shadow: 0 2px 18px #b2faffb6;
+      cursor: pointer;
+      transition: transform 0.18s, box-shadow 0.18s;
+      margin-top: 14px;
+      font-family: 'Baloo 2', cursive;
+    }
+    .rainbow-btn:hover {
+      transform: scale(1.08) rotate(-1deg);
+      box-shadow: 0 4px 22px #ff6fd8b9;
+    }
+    .thank-you {
+      font-size: 1.35em;
+      margin-top: 26px;
+      color: #ff6fd8;
+      animation: sparkle 1.6s infinite alternate;
+    }
+    @keyframes sparkle {
+      0% {text-shadow: 0 0 5px #ffe29f, 0 0 22px #8aff8a;}
+      100% {text-shadow: 0 0 15px #ff6fd8, 0 0 32px #00e6f6;}
+    }
+    /* Responsive */
+    @media (max-width:800px) {
+      .rainbow-text { font-size: 2.1em; }
+      .about-box { padding: 22px 8vw;}
+    }
+    @media (max-width:500px) {
+      .rainbow-text { font-size: 1.3em;}
+      .about-box { padding: 13px 2vw;}
+      .contact-form {padding: 13px 2vw;}
+    }
+  </style>
+</head>
+<body>
+  
 
-  <body>
-    <MARQUEE  style="font-size: xx-large; color: green;" > rajanmahto123</MARQUEE>
-    <h1>Colors</h1>
-    <h2>Learn the colors in Spanish!</h2>
-    <h2 class="color-title" id="red">Rojo</h2>
-    <img src="./assets/images/red.png" alt="red" />
+<body style="background-image: url('Screenshot\ 2025-06-28\ 203516.png');background-repeat: no-repeat";>
+    <marquee style="font-size: xx-large; color: rgb(6, 165, 27);"> rajanmahto123</marquee>
 
-    <h2 class="color-title" id="blue">Azul</h2>
-    <img src="./assets/images/blue.png" alt="blue" />
+    <h1 style="text-align: center; color: rgb(255, 0, 221);"> WEB CREATER</h1>
+    <table style="font-size: 15px; text-align: center;">
+        <tr>
 
-    <h2 class="color-title" id="orange">Anaranjado</h2>
-    <img src="./assets/images/orange.png" alt="orange" />
+        <th></th><th></th> <th></th><th></th> <th></th><th></th> <th></th><th></th> <th></th><th></th>
+ <th></th><th></th> <th></th><th></th> <th></th><th></th> <th></th><th></th> <th></th><th></th> <th></th><th></th>
+ <th></th><th></th> <th></th><th></th> <th></th><th></th> <th></th><th></th> <th></th><th></th>
+ <th></th><th></th> <th></th><th></th> <th></th><th></th> <th></th><th></th> <th></th><th></th>
+ <th></th><th></th> <th></th><th></th> <th></th><th></th> <th></th><th></th> <th></th><th></th>
+  <th></th><th></th> <th></th><th></th>
+ 
 
-    <h2 class="color-title" id="green">Verde</h2>
-    <img src="./assets/images/green.png" alt="green" />
+       <th > <h2> HELLO..! <br> FRIENDS <BR> MY NAMES IS RAJAN KUMAR
+             I am very simple boy Iam also student<br>
+                and read in class 8th in ALLIANT ACADEMY
+                matwari hazaribagh<br> Iam not intelligent but not cheater like other person<br>
+                Iam belong to very poor background and family <br>
+                I want to say that Iam normal person <br>
+                Iam try to learn coading, web designer, hacking etc with ujjwal sir.
+        </h2>
+        </th>
+        </tr>
+    </table>
+    <H2 style="text-align: right;"> my father's name is KAILASH MAHTO <br>
+        and he is very poor man but he want my son <br>wiil make millionare
+        that time <br>my father will realise my son is king of india.</H2>
+    <h3>
 
-    <h2 class="color-title" id="yellow">Amarillo</h2>
-    <img src="./assets/images/yellow.png" alt="yellow" />
-    <h2> this is made by rajanmahto123<br>
-    if you want to Create this thing fastly you contact to me ok..!<br>
-  this is created by html( hyper text markup language).</h2>
-  </body>
+    </h3>
+  <!-- Navigation -->
+  <nav class="nav" role="navigation">
+    <a href="#home" class="active" onclick="showPage('home');return false;">🏠 Home</a>
+    <a href="#about" onclick="showPage('about');return false;">✨ About</a>
+    <a href="#contact" onclick="showPage('contact');return false;">📫 Contact</a>
+  </nav>
+  <!-- Magical Orbs and Fireworks -->
+  <div class="magic-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div class="orb orb4"></div>
+    <div class="orb orb5"></div>
+    <div class="orb orb6"></div>
+    <div class="orb orb7"></div>
+    <div class="orb orb8"></div>
+    <div class="orb orb9"></div>
+    <div class="orb orb10"></div>
+  </div>
+  <div class="fireworks"></div>
+  <!-- Pages -->
+  <div id="home" class="page active">
+    <h1 class="rainbow-text">Welcome to Rajanmahto's Magical World!</h1>
+    <div class="magic-desc">
+      Experience the <span class="rainbow">most colorful</span>, <span class="glitter">most beautiful</span>, and <span class="shimmer">most magical</span> website ever made!<br>
+      <b>Designed by Rajanmahto</b> 🌈✨🔥
+    </div>
+  </div>
+  <div id="about" class="page">
+    <div class="about-box">
+      <h2 class="rainbow-text" style="font-size:2em;">About</h2>
+      <p>
+        <b>Rajanmahto</b> dreamed of a <span class="rainbow">beautiful</span> and <span class="glitter">colorful</span> digital world.<br>
+        This site is a magical fusion of <b>art</b>, <b>animation</b>, and <b>imagination</b>.<br>
+        <span class="about-anim"></span>
+      </p>
+      <p style="margin-top:2em;">
+        Every color, every animation, every sparkle is made for you.<br>
+        <b>RAJAN MAHTO</b> द्वारा, पूरी दुनिया के लिए।<br>
+        <span style="font-family:Pacifico, cursive; font-size:1.4em; color:#fd6e6a;">Magically Yours!</span>
+      </p>
+    </div>
+  </div>
+  <div id="contact" class="page">
+    <form class="contact-form" onsubmit="return sendMagic(event)">
+      <h2 style="font-family:Pacifico,cursive; color:#3813c2;">Contact Rajanmahto</h2>
+      <input type="text" name="name" placeholder="Your Name" required autocomplete="off">
+      <input type="email" name="email" placeholder="Your Email" required autocomplete="off">
+      <textarea name="message" rows="4" placeholder="Your Magical Message" required></textarea>
+      <button type="submit" class="rainbow-btn">Send Magic</button>
+      <div id="thankyou" class="thank-you" style="display:none;">Thank you for reaching out! ✨</div>
+    </form>
+  </div>
+  <!-- Footer -->
+  <div class="footer">
+    Made with <span style="font-size:1.3em;" role="img" aria-label="magic">🪄</span>
+    by <b>Rajanmahto</b> | All Rights Reserved 2025
+  </div>
+  <!-- SPA Navigation and Animations -->
+  <script>
+    // Single page navigation
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+      document.querySelector('.nav a[href="#'+id+'"]').classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    window.addEventListener('hashchange', function() {
+      const h = location.hash.replace('#','') || 'home';
+      showPage(h);
+    });
+    // On load, show correct page
+    document.addEventListener("DOMContentLoaded", function() {
+      let h = location.hash.replace('#','') || 'home';
+      showPage(h);
+    });
+    // Contact "Send Magic" animation
+    function sendMagic(e) {
+      e.preventDefault();
+      document.getElementById('thankyou').style.display='block';
+      setTimeout(function() {
+        document.getElementById('thankyou').style.display='none';
+        e.target.reset();
+      },2600);
+      return false;
+    }
+  </script>
+</body>
 </html>
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Hardest, Most Animated Website</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body { 
+      background: linear-gradient(135deg, #181818, #1f1fab 120%);
+      color: #fff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    header, nav, main, section, article, aside, footer {
+      margin: 16px;
+      padding: 16px;
+      border-radius: 12px;
+      background: rgba(20,20,30,0.7);
+      box-shadow: 0 0 12px #0ff4;
+    }
+    h1, h2, h3 {
+      text-align: center;
+      text-shadow: 0 0 12px #0ff, 0 0 32px #ff0;
+    }
+    /* Loader animation */
+    .loader {
+      margin: 20px auto;
+      border: 16px solid #222;
+      border-top: 16px solid #0ff;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      animation: spin 1s linear infinite, colorShift 2s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+    @keyframes colorShift {
+      0% { border-top: 16px solid #0ff;}
+      33% { border-top: 16px solid #f0f;}
+      66% { border-top: 16px solid #ff0;}
+      100% { border-top: 16px solid #0ff;}
+    }
+    /* Button animation */
+    .crazy-btn {
+      padding: 18px 32px;
+      font-size: 1.3em;
+      border-radius: 20px;
+      border: none;
+      background: linear-gradient(90deg, #ff0, #0ff, #f0f, #0ff, #ff0);
+      background-size: 500% 500%;
+      color: #222;
+      font-weight: bold;
+      cursor: pointer;
+      animation: btnMove 3s infinite alternate, btnColor 3s linear infinite;
+      box-shadow: 0 0 24px #fffa, 0 0 6px #0ff8 inset;
+      margin: 16px auto;
+      display: block;
+    }
+    @keyframes btnMove {
+      0% { transform: translateX(0);}
+      100% { transform: translateX(200px);}
+    }
+    @keyframes btnColor {
+      0%{background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
+    }
+    /* Marquee text */
+    .marquee {
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      box-sizing: border-box;
+      border-bottom: 2px solid #0ff;
+      font-size: 2em;
+      color: #ff0;
+      margin: 0 auto 24px auto;
+      animation: marquee 8s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(100%);}
+      100% { transform: translateX(-100%);}
+    }
+    /* Floating shapes */
+    .float-shape {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      opacity: 0.4;
+      animation: floatShape 20s linear infinite;
+      z-index: 0;
+    }
+    .float-shape1 { left: 5%; top: 10%; background: #0ff; animation-delay: 0s;}
+    .float-shape2 { left: 80%; top: 30%; background: #f0f; animation-delay: 3s;}
+    .float-shape3 { left: 30%; top: 70%; background: #ff0; animation-delay: 7s;}
+    @keyframes floatShape {
+      0% { transform: translateY(0);}
+      100% { transform: translateY(-600px) rotate(360deg);}
+    }
+    /* Matrix Canvas */
+    #matrixCanvas {
+      width: 100%;
+      height: 180px;
+      background: black;
+      border-radius: 10px;
+      display: block;
+      margin: 0 auto 24px auto;
+    }
+    /* SVG animation */
+    .svg-anim {
+      display: block;
+      margin: 20px auto;
+      width: 120px;
+      height: 120px;
+    }
+    .svg-anim circle {
+      stroke: #ff0;
+      stroke-width: 10;
+      fill: none;
+      stroke-dasharray: 360;
+      stroke-dashoffset: 360;
+      animation: dash 3s linear infinite;
+    }
+    @keyframes dash {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+    /* Table animation */
+    .flash-table td {
+      animation: flashBg 2s alternate infinite;
+    }
+    @keyframes flashBg {
+      0% { background: #181818; color: #fff;}
+      50% { background: #0ff; color: #222;}
+      100% { background: #181818; color: #fff;}
+    }
+    /* Progress bar */
+    .prog-wrap {
+      width: 100%;
+      background: #444;
+      border-radius: 8px;
+      margin: 12px 0;
+      overflow: hidden;
+      height: 22px;
+    }
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg,#ff0,#f0f,#0ff);
+      border-radius: 8px;
+      transition: width 0.5s;
+      animation: progressAnim 6s linear infinite;
+    }
+    @keyframes progressAnim {
+      0% { width: 0;}
+      50% { width: 100%;}
+      100% { width: 0;}
+    }
+    /* 3D cube */
+    .cube-wrap {
+      perspective: 800px;
+      width: 120px;
+      height: 120px;
+      margin: 24px auto;
+    }
+    .cube {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: cubeSpin 5s infinite linear;
+    }
+    .cube-face {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      opacity: 0.7;
+      background: #0ff;
+      border: 2px solid #fff;
+    }
+    .cube-face.front  { transform: rotateY(0deg) translateZ(50px);}
+    .cube-face.back   { transform: rotateY(180deg) translateZ(50px);}
+    .cube-face.right  { transform: rotateY(90deg) translateZ(50px);}
+    .cube-face.left   { transform: rotateY(-90deg) translateZ(50px);}
+    .cube-face.top    { transform: rotateX(90deg) translateZ(50px);}
+    .cube-face.bottom { transform: rotateX(-90deg) translateZ(50px);}
+    @keyframes cubeSpin {
+      0% { transform: rotateX(0) rotateY(0);}
+      100% { transform: rotateX(360deg) rotateY(360deg);}
+    }
+    /* Responsive for small screens */
+    @media (max-width: 600px) {
+      .cube-wrap,.svg-anim { width: 80px; height: 80px;}
+      .cube,.cube-face { width: 60px; height: 60px;}
+    }
+    /* Form animation */
+    input:focus, select:focus, textarea:focus {
+      box-shadow: 0 0 8px #0ff;
+      outline: none;
+      border-color: #0ff;
+    }
+    /* Tooltip */
+    .tooltip {
+      position: relative;
+      cursor: pointer;
+      border-bottom: 1px dashed #fff;
+    }
+    .tooltip .tooltip-text {
+      visibility: hidden;
+      position: absolute;
+      background: #222;
+      color: #0ff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      left: 50%;
+      bottom: 140%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 10;
+    }
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+    /* List animation */
+    ul.animated-list li {
+      animation: listFade 2s infinite alternate;
+    }
+    @keyframes listFade {
+      0% { color: #fff; }
+      100% { color: #ff0; }
+    }
+    /* Details/Summary animation */
+    details[open] summary {
+      color: #0ff;
+      transition: color 0.3s;
+      font-weight: bold;
+    }
+    /* Audio/Video controls custom style */
+    audio, video {
+      width: 100%;
+      outline: 3px solid #0ff;
+      border-radius: 8px;
+      margin: 12px 0;
+      background: #000;
+    }
+    /* Misc */
+    .box {
+      width: 100px;
+      height: 100px;
+      margin: 8px;
+      background: linear-gradient(135deg,#0ff,#f0f);
+      display: inline-block;
+      border-radius: 16px;
+      animation: bounceBox 1s infinite alternate;
+    }
+    @keyframes bounceBox {
+      0% { transform: translateY(0);}
+      100% { transform: translateY(-20px);}
+    }
+    /* Code block animation */
+    pre {
+      background: #111;
+      color: #0ff;
+      padding: 10px;
+      border-radius: 8px;
+      overflow-x: auto;
+      animation: codeFlash 2s infinite alternate;
+    }
+    @keyframes codeFlash {
+      0% { box-shadow: 0 0 6px #0ff8;}
+      100% { box-shadow: 0 0 24px #f0f8;}
+    }
+  </style>
+</head>
+<body>
+  <div class="float-shape float-shape1"></div>
+  <div class="float-shape float-shape2"></div>
+  <div class="float-shape float-shape3"></div>
+  <header>
+    <h1>The World's Most Animated, Hardest Website</h1>
+    <div class="marquee">Every HTML element and every animation ever! &nbsp; | &nbsp; Try to interact with every section &nbsp; | &nbsp; Can you handle it?</div>
+  </header>
+  <nav>
+    <a href="#loader">Loader</a> | 
+    <a href="#button">Animated Button</a> | 
+    <a href="#matrix">Matrix</a> | 
+    <a href="#svg">SVG</a> | 
+    <a href="#form">Form</a> | 
+    <a href="#table">Table</a> | 
+    <a href="#cube">3D Cube</a> | 
+    <a href="#media">Media</a> | 
+    <a href="#list">Lists</a> | 
+    <a href="#details">Details</a> |
+    <a href="#code">Code</a>
+  </nav>
+  <main>
+    <section id="loader">
+      <h2>Animated Loader</h2>
+      <div class="loader"></div>
+    </section>
+    <section id="button">
+      <h2>Animated Button</h2>
+      <button class="crazy-btn" id="crazyBtn">Catch Me If You Can!</button>
+    </section>
+    <section id="matrix">
+      <h2>Matrix Rain Canvas</h2>
+      <canvas id="matrixCanvas"></canvas>
+    </section>
+    <section id="svg">
+      <h2>SVG Animation</h2>
+      <svg class="svg-anim" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40"/>
+      </svg>
+    </section>
+    <section id="form">
+      <h2>Animated Form Elements</h2>
+      <form>
+        <label>Name: <input type="text" placeholder="Type your name"></label><br>
+        <label>Email: <input type="email" placeholder="email@example.com"></label><br>
+        <label>Password: <input type="password"></label><br>
+        <label>Favorite Color: 
+          <input type="color" value="#00ffff">
+        </label><br>
+        <label>Number: <input type="number" min="1" max="10"></label><br>
+        <label>Range: <input type="range" min="0" max="100" value="50"></label><br>
+        <label>Pick a date: <input type="date"></label><br>
+        <label>Upload file: <input type="file"></label><br>
+        <label>Textarea: <textarea></textarea></label><br>
+        <label>Select: 
+          <select>
+            <option>Option 1</option>
+            <option>Option 2</option>
+          </select>
+        </label><br>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+    <section id="table">
+      <h2>Animated Table</h2>
+      <table class="flash-table" border="1" width="100%">
+        <thead>
+          <tr><th>#</th><th>Name</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Alice</td><td>😀</td></tr>
+          <tr><td>2</td><td>Bob</td><td>😎</td></tr>
+          <tr><td>3</td><td>Charlie</td><td>🤖</td></tr>
+        </tbody>
+      </table>
+      <div class="prog-wrap"><div class="progress-bar"></div></div>
+    </section>
+    <section id="cube">
+      <h2>3D Animated CSS Cube</h2>
+      <div class="cube-wrap">
+        <div class="cube">
+          <div class="cube-face front"></div>
+          <div class="cube-face back"></div>
+          <div class="cube-face right"></div>
+          <div class="cube-face left"></div>
+          <div class="cube-face top"></div>
+          <div class="cube-face bottom"></div>
+        </div>
+      </div>
+    </section>
+    <section id="media">
+      <h2>Media Elements</h2>
+      <audio controls>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+        Your browser does not support audio.
+      </audio>
+      <video controls poster="https://placekitten.com/400/250" width="400">
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        Your browser does not support video.
+      </video>
+      <img src="https://placekitten.com/200/200" width="200" alt="Kitten" style="display:block;border-radius:20px;margin:8px auto;">
+      <figure>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png" width="200" alt="PNG Demo">
+        <figcaption>PNG with transparency (Figure/Caption)</figcaption>
+      </figure>
+    </section>
+    <section id="list">
+      <h2>Animated Lists & Boxes</h2>
+      <ul class="animated-list">
+        <li>List item one <span class="tooltip">?
+          <span class="tooltip-text">Tooltip info</span>
+        </span>
+        </li>
+        <li>List item two</li>
+        <li>List item three</li>
+      </ul>
+      <ol>
+        <li>Ordered list item</li>
+        <li>Another item</li>
+      </ol>
+      <div>
+        <div class="box"></div>
+        <div class="box" style="animation-delay:0.3s"></div>
+        <div class="box" style="animation-delay:0.6s"></div>
+      </div>
+    </section>
+    <section id="details">
+      <h2>Details & Summary (Collapsible)</h2>
+      <details>
+        <summary>Click me for a secret animation</summary>
+        <p>🎉 Surprise! Here is a <span style="color:#0ff;animation:flashBg 1s infinite alternate;">flashing secret</span>!</p>
+      </details>
+    </section>
+    <section id="code">
+      <h2>Animated Code Block</h2>
+      <pre>
+        // JavaScript function
+        function wow() {
+          alert("You found the hardest website!");
+        }
+      </pre>
+    </section>
+    <section>
+      <h2>Many More HTML Elements</h2>
+      <blockquote>A blockquote element example.</blockquote>
+      <address>Address element: 123 Web Lane, Internet</address>
+      <dl>
+        <dt>Definition Term</dt>
+        <dd>Definition Description</dd>
+      </dl>
+      <hr>
+      <p>
+        <mark>Marked</mark>,
+        <del>Deleted</del>,
+        <ins>Inserted</ins>,
+        <sup>Superscript</sup>,
+        <sub>Subscript</sub>,
+        <kbd>Ctrl+C</kbd>,
+        <samp>Sample output</samp>,
+        <var>x</var>
+      </p>
+      <progress max="100" value="65"></progress>
+      <meter min="0" max="10" value="7"></meter>
+      <br>
+      <small>Small text</small>
+      <br>
+      <abbr title="Hypertext Markup Language">HTML</abbr>
+      <br>
+      <bdo dir="rtl">This text is right-to-left!</bdo>
+      <br>
+      <span tabindex="0" accesskey="h">Accesskey example (press ALT+H)</span>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 The Hardest Website | <a href="#top" style="color:#0ff;">Back to top</a></p>
+  </footer>
+  <script>
+    // Matrix Rain Animation
+    const matrix = document.getElementById('matrixCanvas');
+    const ctx = matrix.getContext('2d');
+    function resizeMatrix() {
+      matrix.width = matrix.offsetWidth;
+      matrix.height = matrix.offsetHeight;
+    }
+    resizeMatrix();
+    window.addEventListener('resize', resizeMatrix);
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const fontSize = 18;
+    let columns = matrix.width / fontSize;
+    let drops = [];
+    function initMatrix() {
+      columns = Math.floor(matrix.width / fontSize);
+      drops = [];
+      for(let x = 0; x < columns; x++)
+        drops[x] = 1;
+    }
+    initMatrix();
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.07)';
+      ctx.fillRect(0, 0, matrix.width, matrix.height);
+      ctx.fillStyle = '#0F0';
+      ctx.font = fontSize + 'px monospace';
+      for(let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if(drops[i] * fontSize > matrix.height && Math.random() > 0.975)
+          drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    setInterval(drawMatrix, 50);
+    window.addEventListener('resize', () => {
+      resizeMatrix();
+      initMatrix();
+    });
 
-<!-- 
-TODOs
-IMPORTANT: You should not need to make ANY CHANGES to index.html
-All code should be written in your CSS file.
+    // Moving Button (tries to escape mouse!)
+    const crazyBtn = document.getElementById('crazyBtn');
+    crazyBtn.addEventListener('mouseenter', function() {
+      const parent = crazyBtn.parentElement;
+      const maxLeft = parent.offsetWidth - crazyBtn.offsetWidth;
+      crazyBtn.style.position = 'relative';
+      crazyBtn.style.left = Math.random() * maxLeft + 'px';
+    });
 
-1. Create a CSS file and incorporate it as an external stylesheet.
-2. Use CSS to style each of the color titles to meaning. 
-Hint: Use the id to help if you don't know the words in spanish.
-3. Use CSS to change all the color titles to have "font-weight: normal;"
-4. Use CSS (not HTML) to make all the images 200px heigh and 200px wide. 
-Hint: 
-https://developer.mozilla.org/en-US/docs/Web/CSS/height
-https://developer.mozilla.org/en-US/docs/Web/CSS/width
--->
+    // Keyboard access for accessibility
+    document.body.addEventListener('keydown', function(e){
+      if(e.key === 'h' && e.altKey) alert('You pressed ALT+H!');
+    });
+  </script>
+</body>
+</html>
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Certificate of Hacking - Rajan Mahto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts for glam! -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+  <style>
+    html,body { 
+      margin:0; padding:0; min-height:100vh; height:100%; 
+      background: radial-gradient(circle at 70% 30%, #0fffc1 0%, #1a2340 100%);
+      font-family: 'Fira Code', monospace;
+      overflow-x: hidden;
+    }
+    /* 3D Animated Glitch Title */
+    .glitch {
+      color: #fff;
+      font-family: "Orbitron", monospace;
+      font-size: 3em;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-align: center;
+      position: relative;
+      margin-top: 7vh;
+      z-index: 10;
+      filter: drop-shadow(0 0 28px #00ffd0);
+      animation: glowPulse 2s infinite alternate;
+    }
+    .glitch:before, .glitch:after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0; width: 100%; top: 0;
+      opacity: 0.7;
+    }
+    .glitch:before {
+      color: #fd6e6a; z-index: -1; left:2px; top:2px; 
+      animation: glitch1 2.2s infinite linear alternate-reverse;
+      filter: blur(0.5px);
+    }
+    .glitch:after {
+      color: #00e6f6; z-index: -2; left:-2px; top:-2px;
+      animation: glitch2 2.5s infinite linear alternate-reverse;
+      filter: blur(0.5px);
+    }
+    @keyframes glitch1 { 0%,100% { left:2px; top:2px;} 20%{left:-3px;top:1px;} 40%{left:2px;top:-2px;} 60%{left:3px;top:4px;} 80%{left:-1px;top:-1px;} }
+    @keyframes glitch2 { 0%,100% { left:-2px; top:-2px;} 20%{left:2px;top:3px;} 40%{left:-3px;top:-1px;} 60%{left:-2px;top:-3px;} 80%{left:1px;top:2px;} }
+    @keyframes glowPulse { from { text-shadow:0 0 30px #0fffc1,0 0 80px #fd6e6a;} to { text-shadow:0 0 50px #fff,0 0 90px #ffe29f; } }
+
+    /* Certificate Box */
+    .cert-box {
+      max-width: 900px;
+      margin: 6vh auto 4vh auto;
+      background: linear-gradient(135deg,#23243a 80%,#fff5 100%);
+      border: 5px solid;
+      border-image: linear-gradient(90deg,#0fffc1,#fd6e6a,#ffe29f,#00e6f6) 1;
+      border-radius: 32px;
+      box-shadow: 0 12px 64px #00ffd088, 0 2px 18px #0fffc144;
+      padding: 3vw 5vw;
+      text-align: center;
+      position: relative;
+      z-index: 3;
+      color: #fff;
+      font-size: 1.35em;
+    }
+    .cert-box h1 {
+      font-family: "Orbitron", monospace;
+      font-size: 2.3em;
+      margin: 0.4em 0 0.6em 0;
+      color: #fd6e6a;
+      text-shadow: 0 0 22px #fff6, 0 0 10px #00ffd0;
+    }
+    .cert-box h2 {
+      font-family: "Orbitron", monospace;
+      font-size: 1.5em;
+      margin: 1em 0 0.5em 0;
+      color: #ffe29f;
+      text-shadow: 0 0 8px #0fffc1;
+    }
+    .cert-box .name {
+      font-family: "Fira Code", monospace;
+      font-size: 2.2em;
+      color: #00e6f6;
+      letter-spacing: 1px;
+      margin: 0.6em 0 0.2em 0;
+      text-shadow: 0 0 18px #fff4, 0 0 8px #0fffc1;
+      animation: namepulse 2.5s infinite alternate;
+    }
+    @keyframes namepulse { from { color: #00e6f6;} to { color: #fd6e6a;} }
+    .cert-box p {
+      margin: 1em 0;
+      line-height: 1.6em;
+    }
+
+    /* Hacking Animation - Matrix Rain */
+    .matrix {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none; z-index: 1;
+      opacity: 0.25;
+      mix-blend-mode: lighten;
+    }
+    /* 3D Spinning Cube */
+    .cube-wrap {
+      perspective: 900px;
+      display: flex; justify-content: center; align-items: center;
+      margin: 3vh auto;
+      height: 180px;
+    }
+    .cube {
+      width: 130px; height: 130px;
+      transform-style: preserve-3d;
+      animation: rotateCube 7s infinite linear;
+      position: relative;
+    }
+    @keyframes rotateCube {
+      0% { transform: rotateX(0deg) rotateY(0deg);}
+      100% { transform: rotateX(360deg) rotateY(360deg);}
+    }
+    .cube-face {
+      position: absolute;
+      width: 130px; height: 130px;
+      background: linear-gradient(135deg, #0fffc1 20%, #fd6e6a 100%);
+      opacity: 0.9;
+      border: 2px solid #ffe29f;
+      box-shadow: 0 0 30px #00ffd0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: "Orbitron", monospace;
+      font-size: 1.5em; color: #fff;
+      text-shadow: 0 0 8px #0006;
+    }
+    .cube-face.front  { transform: translateZ(65px);}
+    .cube-face.back   { transform: rotateY(180deg) translateZ(65px);}
+    .cube-face.right  { transform: rotateY(90deg)  translateZ(65px);}
+    .cube-face.left   { transform: rotateY(-90deg) translateZ(65px);}
+    .cube-face.top    { transform: rotateX(90deg)  translateZ(65px);}
+    .cube-face.bottom { transform: rotateX(-90deg) translateZ(65px);}
+    /* 5000+ Animations: Colorful Sparkles, Shapes, Lines, etc */
+    .animation-canvas {
+      pointer-events:none;
+      position:fixed;
+      left:0;top:0;width:100vw;height:100vh;
+      z-index:2;
+      opacity: 0.7;
+    }
+    /* HoloButton style for Download */
+    .holo-btn {
+      display: inline-block;
+      margin: 2em auto 1em auto;
+      padding: 17px 55px;
+      font-size: 1.1em;
+      font-family: "Orbitron", monospace;
+      background: none;
+      border-radius: 2em;
+      border: 2.5px solid #0fffc1;
+      background: linear-gradient(90deg,#0fffc1,#fd6e6a 80%);
+      color: #23243a;
+      font-weight: 900;
+      letter-spacing: 2px;
+      box-shadow: 0 2px 28px #00ffd055;
+      cursor: pointer;
+      transition: background 0.25s, color 0.18s, box-shadow 0.17s;
+      text-shadow: 0 0 10px #fff9;
+    }
+    .holo-btn:hover {
+      background: linear-gradient(90deg,#fd6e6a,#ffe29f 90%);
+      color: #1a2340;
+      box-shadow: 0 4px 36px #fd6e6a95;
+    }
+    /* Footer */
+    .footer {
+      text-align: center;
+      font-family: "Fira Code", monospace;
+      color: #eee;
+      padding: 2em 0 1.5em 0;
+      font-size: 1.1em;
+      letter-spacing: 1px;
+      text-shadow: 0 0 8px #ffec61;
+    }
+    /* Responsive */
+    @media (max-width:600px){
+      .cert-box { font-size: 1em; padding:3vw 2vw;}
+      .cube-wrap { height:120px;}
+      .cube,.cube-face { width:80px; height:80px; font-size:1em;}
+    }
+  </style>
+</head>
+<body>
+  <canvas class="matrix"></canvas>
+  <canvas class="animation-canvas"></canvas>
+  <div class="glitch" data-text="CERTIFICATE OF HACKING">CERTIFICATE OF HACKING</div>
+  <div class="cert-box">
+    <h1>Official Certificate</h1>
+    <h2>This is to certify that</h2>
+    <div class="name">Rajan Mahto</div>
+    <p>
+      has successfully demonstrated<br>
+      <span style="color:#fd6e6a;font-weight:700;">EXPERTISE IN ETHICAL HACKING</span><br>
+      with mastery in advanced penetration testing,<br>
+      cyber security, and cyber defense techniques.<br>
+    </p>
+    <div class="cube-wrap">
+      <div class="cube">
+        <div class="cube-face front">HACK</div>
+        <div class="cube-face back">CODE</div>
+        <div class="cube-face right">SECURE</div>
+        <div class="cube-face left">MAGIC</div>
+        <div class="cube-face top">3D</div>
+        <div class="cube-face bottom">RAJAN</div>
+      </div>
+    </div>
+    <p>
+      <span style="color:#0fffc1;">Date:</span> <span id="date"></span><br>
+      <span style="color:#ffe29f;">Signed:</span> <b style="color:#fd6e6a;">Rajan Mahto</b><br>
+      <span style="color:#fd6e6a;">🎉</span> This certificate is animated with <b>5000+</b> colorful magical effects! <span style="color:#fd6e6a;">🎉</span>
+    </p>
+    <button class="holo-btn" onclick="window.print()">Download / Print Certificate</button>
+  </div>
+  <div class="footer">
+    &copy; 2025 Rajan Mahto | Designed with 3D, Colors &amp; 5000+ Animations
+  </div>
+  <!-- Matrix Rain + 3D Animations + 5000+ Effects -->
+  <script>
+    // Date
+    document.getElementById('date').innerText = new Date().toLocaleDateString();
+
+    // Matrix Rain
+    const canvas = document.querySelector('.matrix');
+    const ctx = canvas.getContext('2d');
+    let w = window.innerWidth, h = window.innerHeight;
+    canvas.width = w; canvas.height = h;
+    let cols = Math.floor(w/18), ypos = Array(cols).fill(0);
+    function matrix() {
+      ctx.fillStyle = "#1a2340a2";
+      ctx.fillRect(0,0,w,h);
+      ctx.font = "bold 17px Fira Code, monospace";
+      for(let i=0; i<cols; i++){
+        let txt = String.fromCharCode(0x30A0 + Math.random()*96);
+        ctx.fillStyle = "#0fffc1";
+        ctx.fillText(txt, i*18, ypos[i]*18);
+        if(Math.random() > 0.975) ypos[i]=0;
+        ypos[i]++;
+      }
+    }
+    setInterval(matrix, 33);
+    window.addEventListener('resize', ()=>{
+      w = window.innerWidth; h = window.innerHeight;
+      canvas.width = w; canvas.height = h;
+      cols = Math.floor(w/18); ypos = Array(cols).fill(0);
+    });
+
+    // 5000+ Animations: Sparkles, Dots, Shapes, Lines, etc
+    const ac = document.querySelector('.animation-canvas');
+    const actx = ac.getContext('2d');
+    let aw = window.innerWidth, ah = window.innerHeight;
+    ac.width = aw; ac.height = ah;
+    // Generate 1000 particles of each type (spark, shape, line, orb, etc)
+    const PARTICLE_TYPES = 5, PARTICLES_PER_TYPE = 1000;
+    let particles = [];
+    function randColor() {
+      const c = ['#0fffc1','#fd6e6a','#ffe29f','#00e6f6','#a77dff'];
+      return c[Math.floor(Math.random()*c.length)];
+    }
+    function makeParticles() {
+      particles = [];
+      for(let t=0; t<PARTICLE_TYPES; t++) for(let i=0;i<PARTICLES_PER_TYPE;i++){
+        let x = Math.random()*aw, y = Math.random()*ah;
+        let r = 2+Math.random()*8;
+        let dx = -1+Math.random()*2, dy = -1+Math.random()*2;
+        let c = randColor();
+        let o = Math.random();
+        let type = t;
+        particles.push({x,y,r,dx,dy,c,o,type,angle:Math.random()*Math.PI*2,speed:0.2+Math.random()*1.2});
+      }
+    }
+    makeParticles();
+    function drawParticles() {
+      actx.clearRect(0,0,aw,ah);
+      for(let p of particles) {
+        actx.save();
+        actx.globalAlpha = 0.38+p.o*0.4;
+        switch(p.type) {
+          // 0: Sparkles
+          case 0:
+            actx.beginPath();
+            for(let a=0;a<8;a++){
+              let angle = p.angle + a*Math.PI/4;
+              let len = p.r*2.5 + Math.sin(Date.now()/200+p.x+p.y)*3;
+              actx.moveTo(p.x,p.y);
+              actx.lineTo(p.x+Math.cos(angle)*len,p.y+Math.sin(angle)*len);
+            }
+            actx.strokeStyle = p.c;
+            actx.lineWidth = 0.9+p.r/5;
+            actx.stroke();
+            break;
+          // 1: Glowing Dots
+          case 1:
+            let grad = actx.createRadialGradient(p.x,p.y,1,p.x,p.y,p.r*2.2);
+            grad.addColorStop(0,p.c);
+            grad.addColorStop(1,"#0000");
+            actx.fillStyle = grad;
+            actx.beginPath();
+            actx.arc(p.x,p.y,p.r*1.6,0,Math.PI*2);
+            actx.fill();
+            break;
+          // 2: Moving Lines
+          case 2:
+            actx.strokeStyle = p.c;
+            actx.globalAlpha = 0.16+p.o*0.6;
+            actx.beginPath();
+            actx.moveTo(p.x,p.y);
+            actx.lineTo(p.x+Math.cos(p.angle)*p.r*6,p.y+Math.sin(p.angle)*p.r*6);
+            actx.lineWidth = 1.5;
+            actx.stroke();
+            break;
+          // 3: Colorful Orbs
+          case 3:
+            let grad2 = actx.createRadialGradient(p.x,p.y,1,p.x,p.y,p.r*2.7);
+            grad2.addColorStop(0,p.c);
+            grad2.addColorStop(1,"#0000");
+            actx.globalAlpha = 0.12+p.o*0.3;
+            actx.beginPath();
+            actx.arc(p.x,p.y,p.r*2.6,0,Math.PI*2);
+            actx.fillStyle = grad2;
+            actx.fill();
+            break;
+          // 4: Geometric Shapes
+          case 4:
+            actx.save();
+            actx.translate(p.x,p.y);
+            actx.rotate(p.angle + Date.now()/8000 + p.x/150);
+            actx.strokeStyle = p.c;
+            actx.lineWidth = 1.2;
+            actx.beginPath();
+            for(let a=0;a<6;a++){
+              let ang = a*Math.PI/3;
+              actx.lineTo(Math.cos(ang)*p.r*2.1,Math.sin(ang)*p.r*2.1);
+            }
+            actx.closePath();
+            actx.stroke();
+            actx.restore();
+            break;
+        }
+        actx.restore();
+        // Move
+        p.x += p.dx*p.speed; p.y += p.dy*p.speed;
+        p.angle += 0.005+p.o*0.008;
+        // Respawn from edge
+        if(p.x<-40) p.x=aw+20;
+        if(p.x>aw+40) p.x=-20;
+        if(p.y<-40) p.y=ah+20;
+        if(p.y>ah+40) p.y=-20;
+      }
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+    window.addEventListener('resize',()=>{
+      aw=window.innerWidth;ah=window.innerHeight;
+      ac.width=aw;ac.height=ah;
+      makeParticles();
+    });
+  </script>
+   <a href="#top" style="color:#0ff;">Back to top</a>
+</body>
+</html>
