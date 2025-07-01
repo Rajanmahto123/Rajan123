@@ -125,7 +125,7 @@
     .rainbow-text {
       background:var(--main-grad);
       background-size: 300%;
-      -webkit-background-clip: text;
+      -webkit-background-clipa: text;
       -webkit-text-fill-color: transparent;
       animation: rainbowmove 2.8s infinite alternate;
       font-family: 'Pacifico', cursive;
@@ -156,7 +156,7 @@
       text-align: center;
       max-width: 600px;
     }
-    .rainbow { color:#ed1e79; background:linear-gradient(90deg,#fcf,#6ff,#fd6e6a,#ffe29f); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
+    .rainbow { color:#ed1e79; background:linear-gradient(90deg,#fcf,#6ff,#fd6e6a,#ffe29f); -webkit-background-clipa:text; -webkit-text-fill-color:transparent;}
     .glitter { color:#a77dff; text-shadow:0 0 3px #fff,0 0 22px #b2faff;}
     .shimmer { color:#f5a8ec; text-shadow:0 0 8px #ffec61;}
     /* About */
@@ -849,7 +849,7 @@
   <script>
     // Matrix Rain Animation
     const matrix = document.getElementById('matrixCanvas');
-    const ctx = matrix.getContext('2d');
+    constctrx = matrix.getContext('2d');
     function resizeMatrix() {
       matrix.width = matrix.offsetWidth;
       matrix.height = matrix.offsetHeight;
@@ -1063,7 +1063,7 @@
       letter-spacing: 2px;
       box-shadow: 0 2px 28px #00ffd055;
       cursor: pointer;
-      transition: background 0.25s, color 0.18s, box-shadow 0.17s;
+      transition: 0.25s, color 0.18s, box-shadow 0.17s;
       text-shadow: 0 0 10px #fff9;
     }
     .holo-btn:hover {
